@@ -1,17 +1,25 @@
+"use client";
 
 import SearchBox from "./components/shared/SearchBox";
-import { getProducts } from "./services/productApi";
+import { useProducts } from "./hooks/useProducts";
 
-export default async function Page() {
-  const data = await getProducts();
+export default function Page() {
+  const { data, isLoading } = useProducts();
+
+  if (isLoading) return <h1>Loading...</h1>;
 
   return (
-    <div>
-      <div>
-      {data.products.length}<p>Products</p>
-      <SearchBox/>
+    <div className="p-6">
+      <div className="mb-6">
+        <p>{data?.products.length} Products</p>
+        <SearchBox />
       </div>
-      {/* Products count: {data.products.length} */}
+
+      <div>
+        {data?.products.map((p) => (
+          <p key={p.id}>{p.title}</p>
+        ))}
+      </div>
     </div>
   );
 }
