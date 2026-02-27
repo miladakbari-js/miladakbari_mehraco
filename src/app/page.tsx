@@ -1,6 +1,7 @@
 "use client";
 
 import SearchBox from "./components/shared/SearchBox";
+import ProductGrid from "./components/modules/product/ProductGrid";
 import { useProducts } from "./hooks/useProducts";
 
 export default function Page() {
@@ -9,17 +10,17 @@ export default function Page() {
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <p>{data?.products.length} Products</p>
-        <SearchBox />
-      </div>
+    <div className="p-6 space-y-6">
+      {/* search */}
+      <SearchBox />
 
-      <div>
-        {data?.products.map((p) => (
-          <p key={p.id}>{p.title}</p>
-        ))}
-      </div>
+      {/* total */}
+      <p className="text-sm text-gray-500">
+        {data?.total} Products
+      </p>
+
+      {/* grid */}
+      <ProductGrid products={data?.products || []} />
     </div>
   );
 }
