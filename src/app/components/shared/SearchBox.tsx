@@ -21,14 +21,14 @@ function SearchBox() {
   }, [debouncedValue, setSearch]);
 
   return (
-    <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-xl w-full max-w-md">
+    <div className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-xl w-270 ">
       <Search size={16} className="text-gray-500" />
 
       <input
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         placeholder="Search product"
-        className="bg-transparent outline-none w-full text-sm"
+        className="bg-transparent outline-none w-full text-sm "
       />
     </div>
   );
