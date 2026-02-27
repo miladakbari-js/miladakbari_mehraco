@@ -8,5 +8,7 @@ export const useProducts = () => {
   return useQuery({
     queryKey: ["products", search, page],
     queryFn: () => getProducts(search, page),
+
+    placeholderData: (prev) => prev,
   });
 };

@@ -11,8 +11,14 @@ type Props = {
 function Modal({ isOpen, onClose, children }: Props) {
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "auto";
-  }, [isOpen]);
+  if (isOpen) {
+    document.body.style.overflow = "hidden";
+  }
+
+  return () => {
+    document.body.style.overflow = "auto";
+  };
+}, [isOpen]);
 
   if (!isOpen) return null;
 

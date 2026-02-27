@@ -1,19 +1,22 @@
-import axios from "axios";
 import { ProductsResponse } from "../types/product";
 
-const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-});
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const getProducts = async (search: string , page:number): Promise<ProductsResponse> => {
- const limit = 12;
- const skip = (page - 1)*limit;
+const LIMIT = 12;
 
-  const endpoint = search
-    ? `/products/search?q=${search}&limit=${limit}&skip=${skip}`
-    : `/products?limit=${limit}&skip=${skip}`;
+export async function getProducts(
+  search: string,
+  page: number
+): Promise<ProductsResponse> {
+  const skip = (page - 1) * LIMIT;
 
-  const { data } = await api.get(endpoint);
+  const url = search
+    ? `${BASE_URL}/products/search?q=${search}&limit=${LIMIT}&skip=${skip}`
+    : `${BASE_URL}/products?limit=${LIMIT}&skip=${skip}`;
 
-  return data;
-};
+  const res = await fetch(url);
+
+  if (!res.ok) throw new Error("Failed to fetch");
+
+  return res.json();
+}
